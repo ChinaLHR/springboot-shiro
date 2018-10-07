@@ -17,6 +17,8 @@ import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.apache.shiro.util.ByteSource;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -24,8 +26,10 @@ import java.util.*;
 /**
  * Created by yangqj on 2017/4/21.
  */
+@Component
 public class MyShiroRealm extends AuthorizingRealm {
 
+    @Lazy
     @Resource
     private UserService userService;
 

@@ -7,6 +7,8 @@ import com.study.mapper.UserRoleMapper;
 import com.study.model.User;
 import com.study.model.UserRole;
 import com.study.service.UserService;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +21,7 @@ import java.util.List;
 /**
  * Created by yangqj on 2017/4/21.
  */
-@Service("userService")
+@Service
 public class UserServiceImpl extends BaseService<User> implements UserService{
     @Resource
     private UserRoleMapper userRoleMapper;
@@ -66,5 +68,21 @@ public class UserServiceImpl extends BaseService<User> implements UserService{
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("userid",userid);
         userRoleMapper.deleteByExample(example);
+    }
+
+    @Async
+    @Override
+    public void runAsync() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Cacheable(value = "runCache")
+    @Override
+    public String runCache(String s) {
+        return s;
     }
 }

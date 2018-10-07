@@ -14,4 +14,7 @@ public interface UserService extends IService<User>{
 
     void delUser(Integer userid);
 
+    void runAsync();
+
+    String runCache(String s);
 }
